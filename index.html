@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Encuesta Palomino 2026 · V3.4</title>
+<style>
+:root{
+  --bg:#f6f2e8; --card:#fff; --ink:#22312b; --muted:#68736e; --line:#d8ddd9;
+  --accent:#2f6f5e; --accent-soft:#eaf3ef; --sand:#efe3cc; --warn:#fff3cf;
+  --shadow:0 12px 30px rgba(34,49,43,.08); --radius:20px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.wrap{max-width:880px;margin:0 auto;padding:14px 12px 80px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.brand{font-weight:850;letter-spacing:.02em}
+.lang{display:flex;gap:6px}
+.lang button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;font-weight:800;cursor:pointer}
+.lang button.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.hero,.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.hero{padding:26px 22px;margin-bottom:16px}
+.hero h1{font-size:clamp(28px,4.4vw,38px);line-height:1.08;margin:0}
+.surveyTitleBlock{margin:0 0 16px}
+.surveySubtitle{font-size:clamp(17px,2.8vw,22px);font-weight:760;line-height:1.25;margin-top:8px;color:var(--accent);text-align:center}
+.surveyLocation{font-size:clamp(18px,3vw,24px);font-weight:850;line-height:1.2;margin-top:6px;color:var(--ink);text-align:center}
+.hero p{font-size:16px;line-height:1.55;margin:8px 0;color:var(--muted)}
+.kicker{font-size:13px;text-transform:uppercase;letter-spacing:.11em;color:var(--accent);font-weight:850}
+.coop{margin:18px 0;padding:16px 18px;border-left:5px solid var(--accent);background:var(--accent-soft);border-radius:14px;font-weight:850}
+.bullets{margin:14px 0 0;padding-left:20px}
+.bullets li{margin:8px 0;line-height:1.45}
+.privacyBox{margin-top:18px;padding:18px;border:2px solid var(--accent);border-radius:16px;background:#f7fbf9}
+.privacyTag{display:inline-block;background:var(--accent);color:#fff;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:850;letter-spacing:.04em;margin-bottom:8px}
+.privacyBox h3{margin:0 0 8px;font-size:19px}
+.privacyBox p{margin:6px 0;color:var(--ink)}
+.card{padding:22px;margin:14px 0}
+.card h2{margin:0 0 6px;font-size:23px}
+.card .intro{margin:0 0 18px;color:var(--muted);line-height:1.5}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.inline3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.field{margin:14px 0}
+label{display:block;font-weight:760;margin-bottom:7px}
+small.help{display:block;color:var(--muted);margin-top:6px;line-height:1.4}
+input,select,textarea{
+  width:100%;border:1px solid #cbd1cd;background:#fff;border-radius:12px;
+  padding:12px 13px;font-size:16px;color:var(--ink);outline:none
+}
+textarea{min-height:108px;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(47,111,94,.10)}
+.options{display:grid;gap:8px}
+.option{display:flex;align-items:flex-start;gap:9px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.option input{width:auto;margin-top:3px}
+.notice{background:var(--warn);border-radius:14px;padding:14px 16px;line-height:1.45;margin:14px 0}
+.highlightHelp{margin-top:8px;padding:12px 14px;border-radius:12px;background:#eef7f4;border-left:4px solid var(--accent);font-weight:720;line-height:1.45}
+.keyBlock{
+  background:linear-gradient(180deg,#fffdf7,#fff);
+  border:2px solid #c7a76a;border-radius:20px;padding:20px;margin:14px 0;
+  box-shadow:0 10px 24px rgba(79,63,30,.07)
+}
+.keyBlock h2{margin:0 0 8px;font-size:25px}
+.keyBadge{display:inline-block;background:#7a5b22;color:#fff;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:850;letter-spacing:.05em;margin-bottom:8px}
+.keyLead{font-weight:800;font-size:17px;line-height:1.45;margin:8px 0 14px}
+.yearBox{border:1px solid #e4d6b9;border-radius:14px;padding:12px;background:#fff}
+.yearBox strong{display:block;margin-bottom:6px}
+.year2026{border:2px solid #7a5b22;background:#fffaf0}
+.hidden{display:none!important}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+button.primary,button.secondary,button.ghost{
+  border:0;border-radius:14px;padding:13px 18px;font-size:16px;font-weight:850;cursor:pointer
+}
+button.primary{background:var(--accent);color:#fff}
+button.secondary{background:var(--ink);color:#fff}
+button.ghost{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.status{margin-top:12px;font-weight:800}
+.codeBox{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#f1f4f2;border-radius:10px;padding:10px 12px;margin-top:8px;display:none}
+.footer{color:var(--muted);font-size:13px;text-align:center;margin-top:20px}
+.required::after{content:" *";color:#9f3a38}
+hr.sep{border:0;border-top:1px solid var(--line);margin:20px 0}
+@media(max-width:640px){
+ .grid,.inline3{grid-template-columns:1fr}
+ .hero,.card,.keyBlock{padding:18px}
+ .hero h1{font-size:30px}
+ .surveySubtitle{font-size:17px}
+ .surveyLocation{font-size:19px}
+ .wrap{padding:10px 9px 60px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand">Palomino 2026</div>
+    <div class="lang">
+      <button type="button" id="btnEs" class="active">ES</button>
+      <button type="button" id="btnEn">EN</button>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="kicker" data-i18n="kicker">Información para unirnos, entendernos y gestionar mejor</div>
+    <div class="buildTag" style="text-align:right;font-size:11px;opacity:.55;margin-bottom:4px">V3.4</div>
+    <div class="surveyTitleBlock">
+      <h1 data-i18n="titleMain">Encuesta Pro Desarrollo de la Región</h1>
+      <div class="surveySubtitle" data-i18n="titleAudience">Emprendedores · Residentes · Hospitalidad</div>
+      <div class="surveyLocation" data-i18n="titlePlace">Palomino 2026</div>
+    </div>
+    <p data-i18n="subtitle">Somos empresarios y emprendedores de Palomino interesados en volver a unir esfuerzos para promover el desarrollo del corregimiento, impulsar iniciativas comunes, fortalecer su promoción y contar con información seria para presentar necesidades y propuestas ante entidades públicas, privadas y nuevas autoridades.</p>
+
+    <div class="coop" data-i18n="coop">Competimos por nuestros clientes, pero cooperamos por el destino. Eso es coopetencia.</div>
+
+    <ul class="bullets">
+      <li data-i18n="b1">Unirnos nos da una voz más fuerte frente a entidades públicas, privadas y organizaciones nacionales.</li>
+      <li data-i18n="b2">Compartir información real nos permite gestionar mejor infraestructura, promoción, seguridad, formación y desarrollo turístico.</li>
+      <li data-i18n="b3">La coopetencia nos permite competir mejor sin trabajar aislados: cada empresa conserva su identidad, pero el destino se fortalece entre todos.</li>
+      <li data-i18n="b4">Un destino organizado genera más confianza y más oportunidades para visitantes, inversionistas, aliados y comunidades.</li>
+      <li data-i18n="b5">Con datos y representación podemos pasar de reaccionar a planear, construir proyectos comunes y defender mejor los intereses de Palomino.</li>
+    </ul>
+
+    <div class="privacyBox">
+      <div class="privacyTag" data-i18n="privacyTag">CONFIDENCIAL Y ANÓNIMA SI USTED LO PREFIERE</div>
+      <h3 data-i18n="privacyTitle">Usted decide si desea identificarse</h3>
+      <p data-i18n="privacy1">Puede responder toda la encuesta sin escribir su nombre ni el de su establecimiento.</p>
+      <p data-i18n="privacy2">Solo si usted quiere, podrá compartir el nombre de su establecimiento y sus datos de contacto.</p>
+      <p data-i18n="privacy3">La información recopilada sí será utilizada para análisis y gestión, pero los resultados que se compartan serán siempre consolidados y nunca mostrarán de qué establecimiento provino una respuesta o cifra específica.</p>
+      <p data-i18n="privacy4">Le pedimos únicamente que, en la medida de lo posible, la información suministrada sea real y fidedigna.</p>
+      <p><strong data-i18n="privacy5">Aun si responde de forma anónima, podrá conocer los resultados generales de la encuesta.</strong></p>
+    </div>
+
+    <p data-i18n="share">Esta encuesta quiere escuchar a toda la economía local: alojamientos, restaurantes, cafeterías, panaderías, tiendas, artesanos, carpinterías, talleres, transportadores, agencias, guías, operadores, comercios y prestadores de servicios. Si conoce a otros empresarios o emprendedores de Palomino, le agradecemos compartirles esta encuesta. Entre más participemos, más sólida será la información que podamos construir.</p>
+  </section>
+
+  <form id="surveyForm">
+    <section class="card">
+      <h2 data-i18n="s1">1. Su actividad en Palomino</h2>
+      <div class="notice" style="background:#eef7f4;border:2px solid #8eb9aa">
+        <strong data-i18n="activityGuideTitle">Seleccione primero su actividad principal</strong><br>
+        <span data-i18n="activityGuideText">Seleccione su actividad comercial y luego pulse CONTINUAR. Se abrirá el formulario correspondiente para que nos colabore con su información.</span>
+        <small class="help" data-i18n="activityGuideHelp">El formulario cambia según el tipo de negocio, para que cada empresario responda únicamente lo que corresponde a su actividad.</small>
+      </div>
+
+      <div class="field">
+        <label class="required" data-i18n="activityLabel">Actividad principal</label>
+        <select id="activity" name="activity" required>
+          <option value="" data-i18n="select">Seleccione</option>
+          <option value="hotel" data-i18n="hotel">Hotel</option>
+          <option value="hostal" data-i18n="hostal">Hostal</option>
+          <option value="hostel" data-i18n="hostel">Hostel</option>
+          <option value="vivienda" data-i18n="touristHome">Vivienda turística</option>
+          <option value="airbnb" data-i18n="airbnb">Airbnb</option>
+          <option value="apartamentos" data-i18n="touristApartments">Apartamentos turísticos</option>
+          <option value="cabanas" data-i18n="cabinsType">Cabañas</option>
+          <option value="glamping" data-i18n="glamping">Glamping</option>
+          <option value="restaurante" data-i18n="restaurantType">Restaurante</option>
+          <option value="bar" data-i18n="barType">Bar</option>
+          <option value="cafeteria" data-i18n="cafeType">Cafetería</option>
+          <option value="panaderia" data-i18n="bakeryType">Panadería</option>
+          <option value="artesania" data-i18n="craftsType">Artesanías / Taller artesanal</option>
+          <option value="carpinteria" data-i18n="carpentryType">Carpintería / Taller</option>
+          <option value="tienda" data-i18n="shopType">Tienda / Minimercado</option>
+          <option value="transporte" data-i18n="transportType">Transporte</option>
+          <option value="bienestar" data-i18n="wellnessType">Bienestar / Spa</option>
+          <option value="operador" data-i18n="tourOperator">Operador turístico</option>
+          <option value="agencia" data-i18n="tourAgency">Agencia de turismo</option>
+          <option value="guia" data-i18n="tourGuide">Guía de turismo</option>
+          <option value="comercio" data-i18n="commerce">Comercio</option>
+          <option value="servicios" data-i18n="services">Servicios</option>
+          <option value="residente" data-i18n="residentType">Residente de Palomino / trabajador remoto / profesional independiente</option>
+          <option value="otro" data-i18n="other">Otro</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label data-i18n="bizName">Nombre del establecimiento o emprendimiento (opcional)</label>
+        <input type="text" id="businessName" name="businessName" maxlength="120">
+        <div class="highlightHelp" data-i18n="bizNameHelp">Puede dejar este campo en blanco y responder de forma anónima. Aun así, podrá recibir los resultados generales de la encuesta. Identificarse es opcional y no condiciona su participación.</div>
+      </div>
+
+      <div class="actions" style="margin-top:8px">
+        <button type="button" class="primary" id="continueBtn" data-i18n="continueBtn">CONTINUAR</button>
+      </div>
+      <div id="routeStatus" class="status" aria-live="polite"></div>
+
+      
+      <div id="routeResidentBanner" class="notice hidden" style="background:#edf5fb;border:2px solid #8bb5d3">
+        <strong data-i18n="routeResidentTitle">RUTA 3 · RESIDENTES / TRABAJO REMOTO / PROFESIONALES</strong><br>
+        <span data-i18n="routeResidentText">Para quienes viven en Palomino y desean aportar su percepción sobre la evolución del corregimiento, su calidad de vida y sus oportunidades.</span>
+      </div>
+
+      <div id="residentBlock" class="hidden">
+        <hr class="sep">
+        <h3 data-i18n="residentSectionTitle">2. Percepción como residente de Palomino</h3>
+        <p class="intro" data-i18n="residentSectionIntro">No necesita tener un negocio para participar. Nos interesa su experiencia viviendo en Palomino.</p>
+
+        <div class="field">
+          <label data-i18n="residentSituationQ">¿Cuál describe mejor su situación actual en Palomino?</label>
+          <select name="residentSituation">
+            <option value="">—</option>
+            <option value="remote_employee" data-i18n="residentRemoteEmployee">Trabajo remotamente para una empresa</option>
+            <option value="freelance" data-i18n="residentFreelance">Soy profesional independiente / freelance</option>
+            <option value="non_tourism" data-i18n="residentNonTourism">Vivo en Palomino y trabajo fuera del turismo</option>
+            <option value="building_business" data-i18n="residentBuildingBusiness">Estoy desarrollando un emprendimiento</option>
+            <option value="has_business" data-i18n="residentHasBusiness">Ya tengo un emprendimiento</option>
+            <option value="other" data-i18n="other">Otra</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label data-i18n="residentTimeQ">¿Hace cuánto vive en Palomino?</label>
+          <select name="residentTime">
+            <option value="">—</option>
+            <option value="lt1" data-i18n="lt1">Menos de 1 año</option>
+            <option value="1to3" data-i18n="oneToThree">1 a 3 años</option>
+            <option value="4to7" data-i18n="fourToSeven">4 a 7 años</option>
+            <option value="gt7" data-i18n="moreThanSeven">Más de 7 años</option>
+            <option value="part_year" data-i18n="partYear">Vivo parte del año en Palomino</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label data-i18n="residentPerceptionTitle">Pensando en Palomino, ¿cómo percibe la evolución de estos aspectos?</label>
+          <div style="overflow-x:auto">
+            <table style="width:100%;border-collapse:collapse;min-width:680px">
+              <thead>
+                <tr>
+                  <th style="text-align:left;padding:8px;border-bottom:1px solid #ddd" data-i18n="topic">Tema</th>
+                  <th style="padding:8px;border-bottom:1px solid #ddd">2024 → 2025</th>
+                  <th style="padding:8px;border-bottom:1px solid #ddd">2025 → 2026</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td style="padding:8px" data-i18n="economy">Economía y actividad comercial</td>
+                  <td><select name="perceptionEconomy2425"><option value="">—</option><option value="better" data-i18n="improved">Mejoró</option><option value="same" data-i18n="same">Igual</option><option value="worse" data-i18n="worsened">Empeoró</option><option value="unknown" data-i18n="dontKnow">No sé</option></select></td>
+                  <td><select name="perceptionEconomy2526"><option value="">—</option><option value="better" data-i18n="improved">Mejoró</option><option value="same" data-i18n="same">Igual</option><option value="worse" data-i18n="worsened">Empeoró</option><option value="unknown" data-i18n="dontKnow">No sé</option></select></td></tr>
+                <tr><td style="padding:8px" data-i18n="security">Seguridad</td>
+                  <td><select name="perceptionSecurity2425"><option value="">—</option><option value="better" data-i18n="improved">Mejoró</option><option value="same" data-i18n="same">Igual</option><option value="worse" data-i18n="worsened">Empeoró</option><option value="unknown" data-i18n="dontKnow">No sé</option></select></td>
+                  <td><select name="perceptionSecurity2526"><option value="">—</option><option value="better" data-i18n="improved">Mejoró</option><option value="same" data-i18n="same">Igual</option><option value="worse" data-i18n="worsened">Empeoró</option><option value="unknown" data-i18n="dontKnow">No sé</option></select></td></tr>
+                <tr><td style="padding:8px" data-i18n="infrastructure">Servicios públicos e infraestructura</td>
+                  <td><select name="perceptionInfra2425"><option value="">—</option><option value="better" data-i18n="improved">Mejoró</option><option value="same" data-i18n="same">Igual</option><option value="worse" data-i18n="worsened">Empeoró</option><option value="unknown" data-i18n="dontKnow">No sé</option></select></td>
+                  <td><select name="perceptionInfra2526"><option value="">—</option><option value="better" data-i18n="improved">Mejoró</option><option value="same" data-i18n="same">Igual</option><option value="worse" data-i18n="worsened">Empeoró</option><option value="unknown" data-i18n="dontKnow">No sé</option></select></td></tr>
+                <tr><td style="padding:8px" data-i18n="connectivity">Internet y conectividad</td>
+                  <td><select name="perceptionInternet2425"><option value="">—</option><option value="better" data-i18n="improved">Mejoró</option><option value="same" data-i18n="same">Igual</option><option value="worse" data-i18n="worsened">Empeoró</option><option value="unknown" data-i18n="dontKnow">No sé</option></select></td>
+                  <td><select name="perceptionInternet2526"><option value="">—</option><option value="better" data-i18n="improved">Mejoró</option><option value="same" data-i18n="same">Igual</option><option value="worse" data-i18n="worsened">Empeoró</option><option value="unknown" data-i18n="dontKnow">No sé</option></select></td></tr>
+                <tr><td style="padding:8px" data-i18n="tourismMovement">Movimiento turístico</td>
+                  <td><select name="perceptionTourism2425"><option value="">—</option><option value="better" data-i18n="improved">Mejoró</option><option value="same" data-i18n="same">Igual</option><option value="worse" data-i18n="worsened">Empeoró</option><option value="unknown" data-i18n="dontKnow">No sé</option></select></td>
+                  <td><select name="perceptionTourism2526"><option value="">—</option><option value="better" data-i18n="improved">Mejoró</option><option value="same" data-i18n="same">Igual</option><option value="worse" data-i18n="worsened">Empeoró</option><option value="unknown" data-i18n="dontKnow">No sé</option></select></td></tr>
+                <tr><td style="padding:8px" data-i18n="qualityLife">Calidad de vida</td>
+                  <td><select name="perceptionLife2425"><option value="">—</option><option value="better" data-i18n="improved">Mejoró</option><option value="same" data-i18n="same">Igual</option><option value="worse" data-i18n="worsened">Empeoró</option><option value="unknown" data-i18n="dontKnow">No sé</option></select></td>
+                  <td><select name="perceptionLife2526"><option value="">—</option><option value="better" data-i18n="improved">Mejoró</option><option value="same" data-i18n="same">Igual</option><option value="worse" data-i18n="worsened">Empeoró</option><option value="unknown" data-i18n="dontKnow">No sé</option></select></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="field">
+          <label data-i18n="livingExperienceQ">¿Cómo calificaría actualmente su experiencia de vivir en Palomino?</label>
+          <select name="livingExperience">
+            <option value="">—</option>
+            <option value="very_good" data-i18n="veryGood">Muy buena</option>
+            <option value="good" data-i18n="good">Buena</option>
+            <option value="regular" data-i18n="regular">Regular</option>
+            <option value="difficult" data-i18n="difficult">Difícil</option>
+            <option value="very_difficult" data-i18n="veryDifficult">Muy difícil</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label data-i18n="stayQ">¿Piensa continuar viviendo en Palomino durante los próximos 2 años?</label>
+          <select name="stayTwoYears">
+            <option value="">—</option>
+            <option value="yes" data-i18n="yes">Sí</option>
+            <option value="probably_yes" data-i18n="probablyYes">Probablemente sí</option>
+            <option value="unsure" data-i18n="unsure">No estoy seguro</option>
+            <option value="probably_no" data-i18n="probablyNo">Probablemente no</option>
+            <option value="no" data-i18n="no">No</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label data-i18n="entrepreneurQ">¿Ha considerado crear, invertir o participar en un emprendimiento en Palomino?</label>
+          <select name="entrepreneurInterest" id="entrepreneurInterest">
+            <option value="">—</option>
+            <option value="already" data-i18n="alreadyHave">Ya tengo uno</option>
+            <option value="12m" data-i18n="next12">Sí, durante los próximos 12 meses</option>
+            <option value="later" data-i18n="later">Sí, más adelante</option>
+            <option value="maybe" data-i18n="maybe">Tal vez</option>
+            <option value="not_now" data-i18n="notNow">No por ahora</option>
+          </select>
+        </div>
+
+        <div id="residentSectorBlock" class="field hidden">
+          <label data-i18n="sectorQ">¿En qué sector?</label>
+          <select name="residentBusinessSector">
+            <option value="">—</option>
+            <option value="lodging" data-i18n="lodging">Alojamiento</option>
+            <option value="food" data-i18n="foodBeverage">Alimentos y bebidas</option>
+            <option value="tourism" data-i18n="tourism">Turismo</option>
+            <option value="commerce" data-i18n="commerce">Comercio</option>
+            <option value="technology" data-i18n="technology">Tecnología</option>
+            <option value="services" data-i18n="services">Servicios</option>
+            <option value="crafts" data-i18n="crafts">Artesanías</option>
+            <option value="construction" data-i18n="construction">Construcción</option>
+            <option value="other" data-i18n="other">Otro</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label data-i18n="residentInitiativesQ">¿Estaría dispuesto(a) a participar en iniciativas para promover el desarrollo de Palomino?</label>
+          <select name="residentInitiatives">
+            <option value="">—</option>
+            <option value="yes" data-i18n="yes">Sí</option>
+            <option value="maybe" data-i18n="maybe">Tal vez</option>
+            <option value="more" data-i18n="assocMore">Me gustaría conocer más antes de decidir</option>
+            <option value="not_now" data-i18n="notNow">No por ahora</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label data-i18n="residentOpenQ">Desde su experiencia como residente, ¿cuál considera que es hoy la principal necesidad u oportunidad de Palomino?</label>
+          <textarea name="residentOpenComment"></textarea>
+        </div>
+      </div>
+
+<div id="routeGeneralBanner" class="notice hidden" style="background:#eef7f4;border:2px solid #8eb9aa">
+        <strong data-i18n="routeGeneralTitle">RUTA 1 · OTROS EMPRESARIOS Y EMPRENDEDORES</strong><br>
+        <span data-i18n="routeGeneralText">Restaurantes, cafeterías, panaderías, artesanos, carpinterías, tiendas, talleres, transporte, comercio, servicios, turismo y demás actividades no hoteleras.</span>
+      </div>
+
+      <div id="routeLodgingBanner" class="notice hidden" style="background:#fff8e8;border:2px solid #c7a76a">
+        <strong data-i18n="routeLodgingTitle">RUTA 2 · HOSPITALIDAD Y ALOJAMIENTO</strong><br>
+        <span data-i18n="routeLodgingText">Hoteles, hostales, hostels, viviendas turísticas, apartamentos, cabañas, glamping y otros alojamientos.</span>
+      </div>
+
+      <div id="generalBusinessBlock" class="hidden">
+        <hr class="sep">
+        <h3 data-i18n="generalBusinessTitle">2. Actividad empresarial y percepción del negocio</h3>
+        <p class="intro" data-i18n="generalBusinessIntro">Estas preguntas están pensadas para comercios, restaurantes, talleres, artesanos, transportadores, prestadores de servicios y demás actividades no hoteleras. No necesita llevar estadísticas exactas para participar.</p>
+        <div class="field">
+          <label data-i18n="salesDataQ">¿Cuenta con cifras o una estimación porcentual aproximada para comparar sus ventas entre años?</label>
+          <div class="options">
+            <label class="option"><input type="radio" name="hasSalesData" value="si"> <span data-i18n="yes">Sí</span></label>
+            <label class="option"><input type="radio" name="hasSalesData" value="no"> <span data-i18n="no">No</span></label>
+          </div>
+        </div>
+        <div id="salesNumbersBlock" class="hidden">
+          <div class="grid">
+            <div class="field"><label data-i18n="sales2425">Ventas 2024 frente a 2025</label><select name="sales2425Direction"><option value="">—</option><option value="up" data-i18n="increased">Aumentaron</option><option value="same" data-i18n="similar">Se mantuvieron similares</option><option value="down" data-i18n="decreased">Disminuyeron</option></select><small class="help" data-i18n="variationHelp">Si puede estimarlo, indique aproximadamente el porcentaje de variación.</small><input type="number" min="0" max="1000" step="0.1" name="sales2425Pct" placeholder="%"></div>
+            <div class="field"><label data-i18n="sales2526">Ventas 2025 frente a 2026</label><select name="sales2526Direction"><option value="">—</option><option value="up" data-i18n="increased">Aumentaron</option><option value="same" data-i18n="similar">Se mantuvieron similares</option><option value="down" data-i18n="decreased">Disminuyeron</option></select><small class="help" data-i18n="variationHelp">Si puede estimarlo, indique aproximadamente el porcentaje de variación.</small><input type="number" min="0" max="1000" step="0.1" name="sales2526Pct" placeholder="%"></div>
+          </div>
+        </div>
+        <div id="salesPerceptionBlock" class="hidden">
+          <div class="field"><label data-i18n="perception2425">Aunque no tenga cifras exactas, ¿cómo recuerda sus ventas de 2024 frente a 2025?</label><select name="perception2425"><option value="">—</option><option value="much_better_2024" data-i18n="muchBetter2024">Mucho mejor en 2024</option><option value="better_2024" data-i18n="better2024">Algo mejor en 2024</option><option value="similar" data-i18n="verySimilar">Muy similares</option><option value="better_2025" data-i18n="better2025">Algo mejor en 2025</option><option value="much_better_2025" data-i18n="muchBetter2025">Mucho mejor en 2025</option><option value="unknown" data-i18n="dontKnow">No sabría decir</option></select></div>
+          <div class="field"><label data-i18n="perception2526">¿Cómo recuerda sus ventas de 2025 frente a 2026?</label><select name="perception2526"><option value="">—</option><option value="much_better_2025" data-i18n="muchBetter2025">Mucho mejor en 2025</option><option value="better_2025" data-i18n="better2025">Algo mejor en 2025</option><option value="similar" data-i18n="verySimilar">Muy similares</option><option value="better_2026" data-i18n="better2026">Algo mejor en 2026</option><option value="much_better_2026" data-i18n="muchBetter2026">Mucho mejor en 2026</option><option value="unknown" data-i18n="dontKnow">No sabría decir</option></select></div>
+        </div>
+        <div class="field">
+          <label data-i18n="recessBusinessQ">Pensando en esta Semana de Receso 2026, ¿cómo siente sus ventas o movimiento frente a la Semana de Receso 2025?</label>
+          <select name="recessBusinessPerception">
+            <option value="">—</option>
+            <option value="much_lower" data-i18n="muchLower">Mucho menor</option>
+            <option value="lower" data-i18n="lower">Menor</option>
+            <option value="similar" data-i18n="similar">Similar</option>
+            <option value="higher" data-i18n="higher">Mayor</option>
+            <option value="much_higher" data-i18n="muchHigher">Mucho mayor</option>
+            <option value="unknown" data-i18n="dontKnow">No sabría decir</option>
+          </select>
+          <small class="help" data-i18n="recessBusinessHelp">No necesita una cifra exacta. Su percepción también es útil para entender lo que está ocurriendo en Palomino.</small>
+        </div>
+
+        <div class="field"><label data-i18n="normalYearQ">Pensando únicamente en 2026, ¿cómo siente el movimiento de su negocio frente a un año normal en Palomino?</label><select name="business2026VsNormal"><option value="">—</option><option value="much_lower" data-i18n="muchLower">Mucho menor</option><option value="lower" data-i18n="lower">Menor</option><option value="similar" data-i18n="similar">Similar</option><option value="higher" data-i18n="higher">Mayor</option><option value="much_higher" data-i18n="muchHigher">Mucho mayor</option></select></div>
+        <div class="field"><label data-i18n="tourismDependenceQ">¿Qué tanto depende su negocio del movimiento turístico de Palomino?</label><select name="tourismDependence"><option value="">—</option><option value="high" data-i18n="depHigh">Mucho</option><option value="partial" data-i18n="depPartial">Parcialmente</option><option value="low" data-i18n="depLow">Poco</option><option value="none" data-i18n="depNone">Nada</option></select></div>
+        <div class="field"><label data-i18n="mainDifficultyQ">¿Cuál considera hoy la principal dificultad para su actividad?</label><select name="mainDifficulty"><option value="">—</option><option value="low_visitors" data-i18n="diffVisitors">Menor flujo de visitantes</option><option value="costs" data-i18n="diffCosts">Costos altos</option><option value="security" data-i18n="diffSecurity">Seguridad</option><option value="access" data-i18n="diffAccess">Acceso / infraestructura</option><option value="promotion" data-i18n="diffPromotion">Promoción insuficiente</option><option value="informality" data-i18n="diffInformality">Informalidad / competencia</option><option value="other" data-i18n="other">Otro</option></select></div>
+      </div>
+
+      <div id="lodgingBlock" class="hidden">
+        <hr class="sep">
+        <h3 data-i18n="lodgingTitle">Hospitalidad y alojamiento</h3>
+        <p class="intro" data-i18n="lodgingIntro">Estas preguntas aparecen únicamente para hoteles, hostales, viviendas turísticas, apartamentos, cabañas, glamping y otros alojamientos.</p>
+        <div class="grid">
+          <div class="field"><label data-i18n="privateRooms">Habitaciones privadas</label><input type="number" min="0" name="privateRooms"></div>
+          <div class="field"><label data-i18n="sharedRooms">Habitaciones compartidas</label><input type="number" min="0" name="sharedRooms"></div>
+          <div class="field"><label data-i18n="privateCabins">Cabañas privadas</label><input type="number" min="0" name="privateCabins"></div>
+          <div class="field"><label data-i18n="sharedCabins">Cabañas compartidas</label><input type="number" min="0" name="sharedCabins"></div>
+          <div class="field"><label data-i18n="apartments">Apartamentos</label><input type="number" min="0" name="apartments"></div>
+          <div class="field"><label data-i18n="otherUnits">Otras unidades</label><input type="number" min="0" name="otherUnits"></div>
+          <div class="field"><label data-i18n="beds">Número total de camas</label><input type="number" min="0" name="beds"></div>
+          <div class="field"><label data-i18n="maxPax">Capacidad máxima de huéspedes</label><input type="number" min="0" name="maxPax"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card lodgingOnly hidden" id="servicesCard">
+      <h2 data-i18n="s2">3. Servicios e infraestructura del alojamiento</h2>
+      <div class="grid">
+        <div class="field">
+          <label data-i18n="pool">Piscina</label>
+          <select name="pool"><option value="">—</option><option value="si" data-i18n="yes">Sí</option><option value="no" data-i18n="no">No</option></select>
+        </div>
+        <div class="field">
+          <label data-i18n="restaurant">Restaurante</label>
+          <select name="restaurant"><option value="">—</option><option value="no" data-i18n="none">No tiene</option><option value="private" data-i18n="guestsOnly">Solo huéspedes / uso privado</option><option value="public" data-i18n="public">Abierto al público</option></select>
+        </div>
+        <div class="field">
+          <label data-i18n="bar">Bar</label>
+          <select name="bar"><option value="">—</option><option value="no" data-i18n="none">No tiene</option><option value="private" data-i18n="guestsOnly">Solo huéspedes / uso privado</option><option value="public" data-i18n="public">Abierto al público</option></select>
+        </div>
+        <div class="field">
+          <label data-i18n="beachAccess">Acceso directo a playa</label>
+          <select name="beachAccess"><option value="">—</option><option value="si" data-i18n="yes">Sí</option><option value="no" data-i18n="no">No</option></select>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="field">
+          <label data-i18n="beachDistance">Distancia aproximada a la playa</label>
+          <div class="grid">
+            <input type="number" min="0" step="0.1" name="beachDistanceValue" placeholder="0">
+            <select name="beachDistanceUnit"><option value="m">m</option><option value="km">km</option><option value="min_walk" data-i18n="walkMin">min caminando</option></select>
+          </div>
+        </div>
+        <div class="field">
+          <label data-i18n="riverDistance">Distancia aproximada al río Palomino</label>
+          <div class="grid">
+            <input type="number" min="0" step="0.1" name="riverDistanceValue" placeholder="0">
+            <select name="riverDistanceUnit"><option value="m">m</option><option value="km">km</option><option value="min_walk" data-i18n="walkMin">min caminando</option></select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card lodgingOnly hidden" id="employmentCard">
+      <h2 data-i18n="s3">4. Empleo en el alojamiento</h2>
+      <p class="intro" data-i18n="s3intro">Queremos entender cómo cambia el empleo entre temporada baja y alta.</p>
+      <div class="grid">
+        <div class="field"><label data-i18n="fixedLow">Empleados fijos – temporada baja</label><input type="number" min="0" name="fixedLow"></div>
+        <div class="field"><label data-i18n="tempLow">Empleados temporales – temporada baja</label><input type="number" min="0" name="tempLow"></div>
+        <div class="field"><label data-i18n="fixedHigh">Empleados fijos – temporada alta</label><input type="number" min="0" name="fixedHigh"></div>
+        <div class="field"><label data-i18n="tempHigh">Empleados temporales – temporada alta</label><input type="number" min="0" name="tempHigh"></div>
+      </div>
+    </section>
+
+    <section class="keyBlock lodgingOnly hidden" id="recessCard">
+      <div class="keyBadge" data-i18n="keyBadge">OBJETIVO PRINCIPAL DE ESTA ENCUESTA</div>
+      <h2 data-i18n="recessTitle">Semana de Receso — ocupación 2024 / 2025 / 2026</h2>
+      <p class="keyLead" data-i18n="recessLead">Esta es la comparación central que necesitamos construir: ocupación de la Semana de Receso 2024, 2025 y 2026. El dato de 2026 es especialmente importante.</p>
+      <div class="inline3">
+        <div class="yearBox">
+          <strong>2024</strong>
+          <label data-i18n="occupancyPct">Ocupación (%)</label>
+          <input type="number" min="0" max="100" step="0.1" name="recess2024">
+        </div>
+        <div class="yearBox">
+          <strong>2025</strong>
+          <label data-i18n="occupancyPct">Ocupación (%)</label>
+          <input type="number" min="0" max="100" step="0.1" name="recess2025">
+        </div>
+        <div class="yearBox year2026">
+          <strong>2026 ⭐</strong>
+          <label data-i18n="occupancyPct">Ocupación (%)</label>
+          <input type="number" min="0" max="100" step="0.1" name="recess2026">
+        </div>
+      </div>
+      <div class="notice" data-i18n="recessNotice">Puede enviar ahora los datos de 2024 y 2025. Al terminar la Semana de Receso 2026, regrese a la encuesta, registre la ocupación de 2026 y pulse “Respuesta enviada”.</div>
+      <p data-i18n="recessWhy">Palomino ha afrontado en 2026 situaciones extraordinarias. Por eso esta comparación es uno de los objetivos principales de la encuesta.</p>
+    </section>
+
+    <section class="card lodgingOnly hidden" id="occupancyCard">
+      <h2 data-i18n="s4">4. Ocupación general</h2>
+      <p class="intro" data-i18n="optionalData">Si conoce estos datos, agradecemos compartirlos. Si no los conoce, puede dejar los campos en blanco.</p>
+      <div class="inline3">
+        <div class="field"><label data-i18n="avg2024">Promedio 2024 (%)</label><input type="number" min="0" max="100" step="0.1" name="occ2024"></div>
+        <div class="field"><label data-i18n="avg2025">Promedio 2025 (%)</label><input type="number" min="0" max="100" step="0.1" name="occ2025"></div>
+        <div class="field"><label data-i18n="avg2026">Ene–sep 2026 (%)</label><input type="number" min="0" max="100" step="0.1" name="occ2026JanSep"></div>
+      </div>
+    </section>
+
+    <section class="card hidden" id="associationCard">
+      <h2 data-i18n="s5">Unión empresarial</h2>
+      <div class="field">
+        <label class="required" data-i18n="associationQ">¿Estaría de acuerdo y participaría en la creación de una Asociación de Empresarios del corregimiento de Palomino?</label>
+        <div class="options">
+          <label class="option"><input type="radio" name="association" value="si" required> <span data-i18n="assocYes">Sí, participaría</span></label>
+          <label class="option"><input type="radio" name="association" value="no"> <span data-i18n="assocNo">No</span></label>
+          <label class="option"><input type="radio" name="association" value="more"> <span data-i18n="assocMore">Me gustaría conocer más antes de decidir</span></label>
+        </div>
+      </div>
+
+      <div id="contactBlock" class="hidden">
+        <div class="notice" data-i18n="contactExplain">Como indicó que sí participaría, puede dejarnos sus datos para poder contactarlo sobre la iniciativa.</div>
+        <div class="grid">
+          <div class="field"><label data-i18n="contactName">Nombre de contacto</label><input type="text" name="contactName" maxlength="100"></div>
+          <div class="field"><label data-i18n="whatsapp">WhatsApp / celular</label><input type="tel" name="whatsapp" maxlength="40"></div>
+        </div>
+        <div class="field"><label data-i18n="emailOptional">Correo electrónico (opcional)</label><input type="email" name="email" maxlength="120"></div>
+
+        <hr class="sep">
+        <div class="field">
+          <label data-i18n="financialQ">Estamos recopilando información sobre las afectaciones económicas y las situaciones que actualmente enfrentan los empresarios de Palomino. ¿Estaría dispuesto(a) a participar posteriormente en este análisis y compartir información adicional de su establecimiento o actividad?</label>
+          <div class="options">
+            <label class="option"><input type="radio" name="financialFollowup" value="si"> <span data-i18n="financialYes">Sí, deseo participar</span></label>
+            <label class="option"><input type="radio" name="financialFollowup" value="no"> <span data-i18n="financialNo">No por ahora</span></label>
+          </div>
+          <small class="help" data-i18n="financialHelp">Solo lo contactaremos para este propósito si su respuesta es positiva.</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="card hidden" id="openQuestionCard">
+      <h2 data-i18n="s6">Algo más que debamos conocer</h2>
+      <p class="intro" data-i18n="finalIntro">Pregunta opcional.</p>
+      <div class="field">
+        <label data-i18n="openQ">¿Hay alguna necesidad, dificultad o iniciativa que considere importante para el desarrollo de Palomino?</label>
+        <textarea name="openComment"></textarea>
+      </div>
+    </section>
+
+    <section class="card hidden" id="finishCard">
+      <h2 data-i18n="finish">Finalizar</h2>
+      <div class="notice" data-i18n="preliminary">Revise sus respuestas antes de enviar. Una vez enviada la encuesta, quedará cerrada y no podrá editarse ni enviarse nuevamente desde este navegador.</div>
+      <p data-i18n="anonymousUpdate">Si responde de forma anónima, el sistema utilizará un código de respuesta para confirmar que su encuesta fue recibida sin necesidad de identificarse.</p>
+      <div class="privacyBox">
+        <p data-i18n="finalPrivacy">Los resultados compartidos serán consolidados y no identificarán respuestas individuales. Identificarse es opcional.</p>
+      </div>
+      <div class="actions">
+        <button type="button" class="ghost" id="saveDraft" data-i18n="saveDraft">Guardar borrador</button>
+        <button type="submit" class="primary" id="submitBtn" data-i18n="send">Enviar encuesta</button>
+        <button type="button" class="ghost hidden" id="adminNewSurvey">Prueba · Nueva encuesta</button>
+      </div>
+      <div id="responseCode" class="codeBox"></div>
+      <div id="status" class="status"></div>
+    </section>
+  </form>
+
+  <div class="footer"><strong>Powered by QR HUB · <span style="white-space:nowrap">qr-hub.co</span></strong> · Un mundo digital en sus manos<br>V3.4 · Palomino 2026 · ES / EN · Versión definitiva de contenido · Motor listo para integración</div>
+</div>
+
+<script>
+const CONFIG = {
+  apiUrl: "https://script.google.com/macros/s/AKfycbxJNFRMfNr1nxqpx7hk-wZKYUdKvR-gF3CSfRDCyx9btq5kLZejfl94RA5bWrpo_084/exec",
+  surveyId: "palomino-empresarial-hospitalidad-2026-v3-4"
+};
+
+const T = {
+es:{
+kicker:"Información para unirnos, entendernos y gestionar mejor",
+titleMain:"Encuesta Pro Desarrollo de la Región",titleAudience:"Emprendedores · Residentes · Hospitalidad",titlePlace:"Palomino 2026",
+subtitle:"Somos empresarios y emprendedores de Palomino interesados en volver a unir esfuerzos para promover el desarrollo del corregimiento, impulsar iniciativas comunes, fortalecer su promoción y contar con información seria para presentar necesidades y propuestas ante entidades públicas, privadas y nuevas autoridades.",
+coop:"Competimos por nuestros clientes, pero cooperamos por el destino. Eso es coopetencia.",
+b1:"Unirnos nos da una voz más fuerte frente a entidades públicas, privadas y organizaciones nacionales.",
+b2:"Compartir información real nos permite gestionar mejor infraestructura, promoción, seguridad, formación y desarrollo turístico.",
+b3:"La coopetencia nos permite competir mejor sin trabajar aislados: cada empresa conserva su identidad, pero el destino se fortalece entre todos.",
+b4:"Un destino organizado genera más confianza y más oportunidades para visitantes, inversionistas, aliados y comunidades.",
+b5:"Con datos y representación podemos pasar de reaccionar a planear, construir proyectos comunes y defender mejor los intereses de Palomino.",
+privacyTag:"CONFIDENCIAL Y ANÓNIMA SI USTED LO PREFIERE",
+privacyTitle:"Usted decide si desea identificarse",
+privacy1:"Puede responder toda la encuesta sin escribir su nombre ni el de su establecimiento.",
+privacy2:"Solo si usted quiere, podrá compartir el nombre de su establecimiento y sus datos de contacto.",
+privacy3:"La información recopilada sí será utilizada para análisis y gestión, pero los resultados que se compartan serán siempre consolidados y nunca mostrarán de qué establecimiento provino una respuesta o cifra específica.",
+privacy4:"Le pedimos únicamente que, en la medida de lo posible, la información suministrada sea real y fidedigna.",
+privacy5:"Aun si responde de forma anónima, podrá conocer los resultados generales de la encuesta.",
+convenerTitle:"Espacio para el grupo promotor / convocatoria",convenerText:"Aquí podremos incorporar, antes del lanzamiento, una breve presentación del grupo de empresarios que convoca la encuesta y las iniciativas que se desean promover conjuntamente.",share:"Esta encuesta quiere escuchar a toda la economía local: alojamientos, restaurantes, cafeterías, panaderías, tiendas, artesanos, carpinterías, talleres, transportadores, agencias, guías, operadores, comercios y prestadores de servicios. Si conoce a otros empresarios o emprendedores de Palomino, le agradecemos compartirles esta encuesta. Entre más participemos, más sólida será la información que podamos construir.",
+s1:"1. Su actividad en Palomino",s1intro:"Seleccione la actividad principal. Algunas preguntas aparecerán solo cuando correspondan.",
+activityGuideTitle:"Seleccione primero su actividad principal",activityGuideText:"Seleccione su actividad comercial y luego pulse CONTINUAR. Se abrirá el formulario correspondiente para que nos colabore con su información.",activityGuideHelp:"El formulario cambia según el tipo de negocio, para que cada empresario responda únicamente lo que corresponde a su actividad.",continueBtn:"CONTINUAR",selectActivityFirst:"Seleccione primero su actividad principal y luego pulse CONTINUAR.",routeOpenedGeneral:"Listo. Se abrió el formulario para otros empresarios y emprendedores.",routeOpenedLodging:"Listo. Se abrió el formulario de hospitalidad y alojamiento.",activityLabel:"Actividad principal",select:"Seleccione",hotel:"Hotel",hostal:"Hostal",hostel:"Hostel",touristHome:"Vivienda turística",airbnb:"Airbnb",touristApartments:"Apartamentos turísticos",cabinsType:"Cabañas",glamping:"Glamping",restaurantType:"Restaurante",barType:"Bar",cafeType:"Cafetería",bakeryType:"Panadería",craftsType:"Artesanías / Taller artesanal",carpentryType:"Carpintería / Taller",shopType:"Tienda / Minimercado",transportType:"Transporte",wellnessType:"Bienestar / Spa",tourOperator:"Operador turístico",tourAgency:"Agencia de turismo",tourGuide:"Guía de turismo",commerce:"Comercio",services:"Servicios",residentType:"Residente de Palomino / trabajador remoto / profesional independiente",other:"Otro",
+bizName:"Nombre del establecimiento o emprendimiento (opcional)",bizNameHelp:"Puede dejar este campo en blanco y responder de forma anónima. Aun así, podrá recibir los resultados generales de la encuesta. Identificarse es opcional y no condiciona su participación.",
+privateRooms:"Habitaciones privadas",sharedRooms:"Habitaciones compartidas",privateCabins:"Cabañas privadas",sharedCabins:"Cabañas compartidas",apartments:"Apartamentos",otherUnits:"Otras unidades",beds:"Número total de camas",maxPax:"Capacidad máxima de huéspedes",
+routeResidentTitle:"RUTA 3 · RESIDENTES / TRABAJO REMOTO / PROFESIONALES",routeResidentText:"Para quienes viven en Palomino y desean aportar su percepción sobre la evolución del corregimiento, su calidad de vida y sus oportunidades.",routeOpenedResident:"Listo. Se abrió el formulario para residentes, trabajo remoto y profesionales.",residentSectionTitle:"2. Percepción como residente de Palomino",residentSectionIntro:"No necesita tener un negocio para participar. Nos interesa su experiencia viviendo en Palomino.",residentSituationQ:"¿Cuál describe mejor su situación actual en Palomino?",residentRemoteEmployee:"Trabajo remotamente para una empresa",residentFreelance:"Soy profesional independiente / freelance",residentNonTourism:"Vivo en Palomino y trabajo fuera del turismo",residentBuildingBusiness:"Estoy desarrollando un emprendimiento",residentHasBusiness:"Ya tengo un emprendimiento",residentTimeQ:"¿Hace cuánto vive en Palomino?",lt1:"Menos de 1 año",oneToThree:"1 a 3 años",fourToSeven:"4 a 7 años",moreThanSeven:"Más de 7 años",partYear:"Vivo parte del año en Palomino",residentPerceptionTitle:"Pensando en Palomino, ¿cómo percibe la evolución de estos aspectos?",topic:"Tema",economy:"Economía y actividad comercial",security:"Seguridad",infrastructure:"Servicios públicos e infraestructura",connectivity:"Internet y conectividad",tourismMovement:"Movimiento turístico",qualityLife:"Calidad de vida",improved:"Mejoró",same:"Igual",worsened:"Empeoró",livingExperienceQ:"¿Cómo calificaría actualmente su experiencia de vivir en Palomino?",veryGood:"Muy buena",good:"Buena",regular:"Regular",difficult:"Difícil",veryDifficult:"Muy difícil",stayQ:"¿Piensa continuar viviendo en Palomino durante los próximos 2 años?",probablyYes:"Probablemente sí",unsure:"No estoy seguro",probablyNo:"Probablemente no",entrepreneurQ:"¿Ha considerado crear, invertir o participar en un emprendimiento en Palomino?",alreadyHave:"Ya tengo uno",next12:"Sí, durante los próximos 12 meses",later:"Sí, más adelante",maybe:"Tal vez",notNow:"No por ahora",sectorQ:"¿En qué sector?",lodging:"Alojamiento",foodBeverage:"Alimentos y bebidas",tourism:"Turismo",technology:"Tecnología",crafts:"Artesanías",construction:"Construcción",residentInitiativesQ:"¿Estaría dispuesto(a) a participar en iniciativas para promover el desarrollo de Palomino?",residentOpenQ:"Desde su experiencia como residente, ¿cuál considera que es hoy la principal necesidad u oportunidad de Palomino?",routeGeneralTitle:"RUTA 1 · OTROS EMPRESARIOS Y EMPRENDEDORES",routeGeneralText:"Restaurantes, cafeterías, panaderías, artesanos, carpinterías, tiendas, talleres, transporte, comercio, servicios, turismo y demás actividades no hoteleras.",routeLodgingTitle:"RUTA 2 · HOSPITALIDAD Y ALOJAMIENTO",routeLodgingText:"Hoteles, hostales, hostels, viviendas turísticas, apartamentos, cabañas, glamping y otros alojamientos.",generalBusinessTitle:"2. Actividad empresarial y percepción del negocio",generalBusinessIntro:"Estas preguntas están pensadas para comercios, restaurantes, talleres, artesanos, transportadores, prestadores de servicios y demás actividades no hoteleras. No necesita llevar estadísticas exactas para participar.",salesDataQ:"¿Cuenta con cifras o una estimación porcentual aproximada para comparar sus ventas entre años?",sales2425:"Ventas 2024 frente a 2025",sales2526:"Ventas 2025 frente a 2026",increased:"Aumentaron",decreased:"Disminuyeron",similar:"Similar",variationHelp:"Si puede estimarlo, indique aproximadamente el porcentaje de variación.",perception2425:"Aunque no tenga cifras exactas, ¿cómo recuerda sus ventas de 2024 frente a 2025?",perception2526:"¿Cómo recuerda sus ventas de 2025 frente a 2026?",muchBetter2024:"Mucho mejor en 2024",better2024:"Algo mejor en 2024",verySimilar:"Muy similares",better2025:"Algo mejor en 2025",muchBetter2025:"Mucho mejor en 2025",better2026:"Algo mejor en 2026",muchBetter2026:"Mucho mejor en 2026",dontKnow:"No sabría decir",recessBusinessQ:"Pensando en esta Semana de Receso 2026, ¿cómo siente sus ventas o movimiento frente a la Semana de Receso 2025?",recessBusinessHelp:"No necesita una cifra exacta. Su percepción también es útil para entender lo que está ocurriendo en Palomino.",normalYearQ:"Pensando únicamente en 2026, ¿cómo siente el movimiento de su negocio frente a un año normal en Palomino?",muchLower:"Mucho menor",lower:"Menor",higher:"Mayor",muchHigher:"Mucho mayor",tourismDependenceQ:"¿Qué tanto depende su negocio del movimiento turístico de Palomino?",depHigh:"Mucho",depPartial:"Parcialmente",depLow:"Poco",depNone:"Nada",mainDifficultyQ:"¿Cuál considera hoy la principal dificultad para su actividad?",diffVisitors:"Menor flujo de visitantes",diffCosts:"Costos altos",diffSecurity:"Seguridad",diffAccess:"Acceso / infraestructura",diffPromotion:"Promoción insuficiente",diffInformality:"Informalidad / competencia",lodgingTitle:"Hospitalidad y alojamiento",lodgingIntro:"Estas preguntas aparecen únicamente para hoteles, hostales, viviendas turísticas, apartamentos, cabañas, glamping y otros alojamientos.",s2:"3. Servicios e infraestructura del alojamiento",pool:"Piscina",restaurant:"Restaurante",bar:"Bar",beachAccess:"Acceso directo a playa",yes:"Sí",no:"No",none:"No tiene",guestsOnly:"Solo huéspedes / uso privado",public:"Abierto al público",
+beachDistance:"Distancia aproximada a la playa",riverDistance:"Distancia aproximada al río Palomino",walkMin:"min caminando",
+s3:"4. Empleo en el alojamiento",s3intro:"Queremos entender cómo cambia el empleo entre temporada baja y alta.",fixedLow:"Empleados fijos – temporada baja",tempLow:"Empleados temporales – temporada baja",fixedHigh:"Empleados fijos – temporada alta",tempHigh:"Empleados temporales – temporada alta",
+keyBadge:"OBJETIVO PRINCIPAL DE ESTA ENCUESTA",recessTitle:"Semana de Receso — ocupación 2024 / 2025 / 2026",recessLead:"Esta es la comparación central que necesitamos construir: ocupación de la Semana de Receso 2024, 2025 y 2026. El dato de 2026 es especialmente importante.",occupancyPct:"Ocupación (%)",recessNotice:"Puede enviar ahora los datos de 2024 y 2025. Al terminar la Semana de Receso 2026, regrese a la encuesta, registre la ocupación de 2026 y pulse “Respuesta enviada”.",recessWhy:"Palomino ha afrontado en 2026 situaciones extraordinarias. Por eso esta comparación es uno de los objetivos principales de la encuesta.",
+s4:"4. Ocupación general",optionalData:"Si conoce estos datos, agradecemos compartirlos. Si no los conoce, puede dejar los campos en blanco.",avg2024:"Promedio 2024 (%)",avg2025:"Promedio 2025 (%)",avg2026:"Ene–sep 2026 (%)",
+s5:"Unión empresarial",associationQ:"¿Estaría de acuerdo y participaría en la creación de una Asociación de Empresarios del corregimiento de Palomino?",assocYes:"Sí, participaría",assocNo:"No",assocMore:"Me gustaría conocer más antes de decidir",
+contactExplain:"Como indicó que sí participaría, puede dejarnos sus datos para poder contactarlo sobre la iniciativa.",contactName:"Nombre de contacto",whatsapp:"WhatsApp / celular",emailOptional:"Correo electrónico (opcional)",
+financialQ:"Estamos recopilando información sobre las afectaciones económicas y las situaciones que actualmente enfrentan los empresarios de Palomino. ¿Estaría dispuesto(a) a participar posteriormente en este análisis y compartir información adicional de su establecimiento o actividad?",financialYes:"Sí, deseo participar",financialNo:"No por ahora",financialHelp:"Solo lo contactaremos para este propósito si su respuesta es positiva.",
+s6:"Algo más que debamos conocer",finalIntro:"Pregunta opcional.",openQ:"¿Hay alguna necesidad, dificultad o iniciativa que considere importante para el desarrollo de Palomino?",
+finish:"Finalizar",preliminary:"Revise sus respuestas antes de enviar. Una vez enviada la encuesta, quedará cerrada y no podrá editarse ni enviarse nuevamente desde este navegador.",anonymousUpdate:"Si responde de forma anónima, el sistema utilizará un código de respuesta para confirmar que su encuesta fue recibida sin necesidad de identificarse.",finalPrivacy:"Los resultados compartidos serán consolidados y no identificarán respuestas individuales. Identificarse es opcional.",saveDraft:"Guardar borrador",send:"Enviar encuesta",update:"Respuesta enviada"
+},
+en:{
+kicker:"Information to unite, understand and manage better",
+titleMain:"Regional Development Survey",titleAudience:"Entrepreneurs · Residents · Hospitality",titlePlace:"Palomino 2026",
+subtitle:"We are business owners and entrepreneurs in Palomino interested in joining efforts again to promote the district’s development, support common initiatives, strengthen its promotion and build reliable information to present needs and proposals to public and private institutions and new authorities.",
+coop:"We compete for our customers, but we cooperate for the destination. That is coopetition.",
+b1:"Working together gives us a stronger voice with public agencies, private organizations and national institutions.",
+b2:"Sharing real information helps us better manage infrastructure, promotion, safety, training and tourism development.",
+b3:"Coopetition allows us to compete better without working in isolation: each business keeps its identity while the destination grows stronger together.",
+b4:"An organized destination creates greater confidence and more opportunities for visitors, investors, partners and communities.",
+b5:"With data and representation, we can move from reacting to planning, build common projects and better defend Palomino’s interests.",
+privacyTag:"CONFIDENTIAL AND ANONYMOUS IF YOU PREFER",
+privacyTitle:"You decide whether you want to identify yourself",
+privacy1:"You may complete the entire survey without providing your name or the name of your business.",
+privacy2:"Only if you choose to, you may share the name of your business and your contact information.",
+privacy3:"The information collected will be used for analysis and management purposes, but any results we share will always be aggregated and will never show which establishment provided a specific answer or figure.",
+privacy4:"We only ask that, whenever possible, the information you provide be accurate and truthful.",
+privacy5:"Even if you answer anonymously, you will still be able to receive the overall survey results.",
+convenerTitle:"Space for the promoting group / call to participate",convenerText:"Before launch, we can place here a short presentation of the group of business owners convening the survey and the initiatives they want to promote together.",share:"This survey wants to hear from the entire local economy: accommodations, restaurants, cafés, bakeries, shops, artisans, carpentry workshops, transport providers, agencies, guides, tour operators, retailers and service businesses. If you know other business owners or entrepreneurs in Palomino, please share this survey with them. The more of us who participate, the stronger the information we can build.",
+s1:"1. Your activity in Palomino",s1intro:"Select your main activity. Some questions will appear only when relevant.",
+activityGuideTitle:"First, select your main activity",activityGuideText:"Select your business activity and then tap CONTINUE. The corresponding form will open so you can help us with your information.",activityGuideHelp:"The form changes according to the type of business, so each business owner only answers what applies to their activity.",continueBtn:"CONTINUE",selectActivityFirst:"First select your main activity, then tap CONTINUE.",routeOpenedGeneral:"Ready. The form for other businesses and entrepreneurs is now open.",routeOpenedLodging:"Ready. The hospitality and lodging form is now open.",activityLabel:"Main activity",select:"Select",hotel:"Hotel",hostal:"Guesthouse / Hostal",hostel:"Hostel",touristHome:"Vacation rental / tourist home",airbnb:"Airbnb",touristApartments:"Tourist apartments",cabinsType:"Cabins",glamping:"Glamping",restaurantType:"Restaurant",barType:"Bar",cafeType:"Café",bakeryType:"Bakery",craftsType:"Crafts / Artisan workshop",carpentryType:"Carpentry / Workshop",shopType:"Shop / Mini-market",transportType:"Transport",wellnessType:"Wellness / Spa",tourOperator:"Tour operator",tourAgency:"Travel agency",tourGuide:"Tour guide",commerce:"Retail / commerce",services:"Services",residentType:"Palomino resident / remote worker / independent professional",other:"Other",
+bizName:"Business or establishment name (optional)",bizNameHelp:"You may leave this field blank and answer anonymously. You will still be able to receive the overall survey results. Identifying yourself is optional and is not required to participate.",
+privateRooms:"Private rooms",sharedRooms:"Shared rooms",privateCabins:"Private cabins",sharedCabins:"Shared cabins",apartments:"Apartments",otherUnits:"Other units",beds:"Total number of beds",maxPax:"Maximum guest capacity",
+routeResidentTitle:"ROUTE 3 · RESIDENTS / REMOTE WORK / PROFESSIONALS",routeResidentText:"For people who live in Palomino and want to share their perception of the district’s evolution, quality of life and opportunities.",routeOpenedResident:"Ready. The resident, remote work and professional form is now open.",residentSectionTitle:"2. Perception as a Palomino resident",residentSectionIntro:"You do not need to own a business to participate. We are interested in your experience living in Palomino.",residentSituationQ:"Which best describes your current situation in Palomino?",residentRemoteEmployee:"I work remotely for a company",residentFreelance:"I am an independent professional / freelancer",residentNonTourism:"I live in Palomino and work outside tourism",residentBuildingBusiness:"I am developing a business venture",residentHasBusiness:"I already have a business venture",residentTimeQ:"How long have you lived in Palomino?",lt1:"Less than 1 year",oneToThree:"1 to 3 years",fourToSeven:"4 to 7 years",moreThanSeven:"More than 7 years",partYear:"I live in Palomino part of the year",residentPerceptionTitle:"Thinking about Palomino, how do you perceive the evolution of these aspects?",topic:"Topic",economy:"Economy and commercial activity",security:"Safety / security",infrastructure:"Public services and infrastructure",connectivity:"Internet and connectivity",tourismMovement:"Tourism activity",qualityLife:"Quality of life",improved:"Improved",same:"Same",worsened:"Worsened",livingExperienceQ:"How would you currently rate your experience of living in Palomino?",veryGood:"Very good",good:"Good",regular:"Fair",difficult:"Difficult",veryDifficult:"Very difficult",stayQ:"Do you plan to continue living in Palomino during the next 2 years?",probablyYes:"Probably yes",unsure:"Not sure",probablyNo:"Probably no",entrepreneurQ:"Have you considered creating, investing in or participating in a business venture in Palomino?",alreadyHave:"I already have one",next12:"Yes, within the next 12 months",later:"Yes, later",maybe:"Maybe",notNow:"Not for now",sectorQ:"In which sector?",lodging:"Lodging",foodBeverage:"Food and beverage",tourism:"Tourism",technology:"Technology",crafts:"Crafts",construction:"Construction",residentInitiativesQ:"Would you be willing to participate in initiatives to promote Palomino’s development?",residentOpenQ:"From your experience as a resident, what do you consider Palomino’s main need or opportunity today?",routeGeneralTitle:"ROUTE 1 · OTHER BUSINESSES AND ENTREPRENEURS",routeGeneralText:"Restaurants, cafés, bakeries, artisans, carpentry shops, stores, workshops, transport, retail, services, tourism and other non-lodging activities.",routeLodgingTitle:"ROUTE 2 · HOSPITALITY AND LODGING",routeLodgingText:"Hotels, guesthouses, hostels, vacation rentals, apartments, cabins, glamping and other accommodations.",generalBusinessTitle:"2. Business activity and business perception",generalBusinessIntro:"These questions are intended for shops, restaurants, workshops, artisans, transport providers, service businesses and other non-lodging activities. You do not need exact statistics to participate.",salesDataQ:"Do you have figures or an approximate percentage estimate to compare your sales between years?",sales2425:"2024 sales compared with 2025",sales2526:"2025 sales compared with 2026",increased:"Increased",decreased:"Decreased",similar:"Similar",variationHelp:"If you can estimate it, indicate the approximate percentage change.",perception2425:"Even without exact figures, how do you remember your 2024 sales compared with 2025?",perception2526:"How do you remember your 2025 sales compared with 2026?",muchBetter2024:"Much better in 2024",better2024:"Somewhat better in 2024",verySimilar:"Very similar",better2025:"Somewhat better in 2025",muchBetter2025:"Much better in 2025",better2026:"Somewhat better in 2026",muchBetter2026:"Much better in 2026",dontKnow:"I could not say",recessBusinessQ:"Thinking about this 2026 Recess Week, how do your sales or business activity feel compared with Recess Week 2025?",recessBusinessHelp:"You do not need an exact figure. Your perception is also useful for understanding what is happening in Palomino.",normalYearQ:"Thinking only about 2026, how does the level of activity in your business feel compared with a normal year in Palomino?",muchLower:"Much lower",lower:"Lower",higher:"Higher",muchHigher:"Much higher",tourismDependenceQ:"How much does your business depend on tourism activity in Palomino?",depHigh:"A lot",depPartial:"Partly",depLow:"A little",depNone:"Not at all",mainDifficultyQ:"What do you consider the main difficulty for your activity today?",diffVisitors:"Lower visitor flow",diffCosts:"High costs",diffSecurity:"Safety / security",diffAccess:"Access / infrastructure",diffPromotion:"Insufficient promotion",diffInformality:"Informality / competition",lodgingTitle:"Hospitality and lodging",lodgingIntro:"These questions appear only for hotels, hostels, vacation rentals, apartments, cabins, glamping and other accommodations.",s2:"3. Lodging services and infrastructure",pool:"Swimming pool",restaurant:"Restaurant",bar:"Bar",beachAccess:"Direct beach access",yes:"Yes",no:"No",none:"None",guestsOnly:"Guests only / private use",public:"Open to the public",
+beachDistance:"Approximate distance to the beach",riverDistance:"Approximate distance to the Palomino River",walkMin:"walking min",
+s3:"4. Lodging employment",s3intro:"We want to understand how employment changes between low and high season.",fixedLow:"Permanent employees – low season",tempLow:"Temporary employees – low season",fixedHigh:"Permanent employees – high season",tempHigh:"Temporary employees – high season",
+keyBadge:"MAIN PURPOSE OF THIS SURVEY",recessTitle:"School Recess Week — occupancy 2024 / 2025 / 2026",recessLead:"This is the central comparison we need to build: occupancy during Recess Week in 2024, 2025 and 2026. The 2026 figure is especially important.",occupancyPct:"Occupancy (%)",recessNotice:"You may submit the 2024 and 2025 figures now. After the 2026 Recess Week ends, return to the survey, enter the 2026 occupancy figure and click “Response submitted”.",recessWhy:"Palomino has faced extraordinary circumstances in 2026. That is why this comparison is one of the main objectives of the survey.",
+s4:"4. Overall occupancy",optionalData:"If you know these figures, we appreciate you sharing them. If not, you may leave the fields blank.",avg2024:"2024 average (%)",avg2025:"2025 average (%)",avg2026:"Jan–Sep 2026 (%)",
+s5:"Business unity",associationQ:"Would you support and participate in creating a Business Association for the district of Palomino?",assocYes:"Yes, I would participate",assocNo:"No",assocMore:"I would like to know more before deciding",
+contactExplain:"Since you indicated that you would participate, you may leave your contact details so we can reach you about the initiative.",contactName:"Contact name",whatsapp:"WhatsApp / mobile",emailOptional:"Email (optional)",
+financialQ:"We are gathering information about the economic impacts and situations currently affecting businesses in Palomino. Would you be willing to participate later in this analysis and share additional information about your business or activity?",financialYes:"Yes, I want to participate",financialNo:"Not for now",financialHelp:"We will contact you for this purpose only if your answer is positive.",
+s6:"Anything else we should know",finalIntro:"Optional question.",openQ:"Is there any need, difficulty or initiative you consider important for Palomino’s development?",
+finish:"Finish",preliminary:"Review your answers before submitting. Once the survey is submitted, it will be closed and cannot be edited or submitted again from this browser.",anonymousUpdate:"If you answer anonymously, the system will use a response code to confirm receipt without requiring you to identify yourself.",finalPrivacy:"Shared results will be aggregated and will not identify individual responses. Identifying yourself is optional.",saveDraft:"Save draft",send:"Submit survey",update:"Response submitted"
+}
+};
+
+let lang="es";
+const lodgingActivities=new Set(["hotel","hostal","hostel","vivienda","airbnb","apartamentos","cabanas","glamping"]);
+
+// Explicit DOM references: do not rely on browser-created globals from element IDs.
+// This is important on iPhone/Safari and when opening the HTML as a local file.
+const el = {
+  btnEs: document.getElementById("btnEs"),
+  btnEn: document.getElementById("btnEn"),
+  activity: document.getElementById("activity"),
+  routeResidentBanner: document.getElementById("routeResidentBanner"),
+  residentBlock: document.getElementById("residentBlock"),
+  residentSectorBlock: document.getElementById("residentSectorBlock"),
+  entrepreneurInterest: document.getElementById("entrepreneurInterest"),
+  routeGeneralBanner: document.getElementById("routeGeneralBanner"),
+  routeLodgingBanner: document.getElementById("routeLodgingBanner"),
+  generalBusinessBlock: document.getElementById("generalBusinessBlock"),
+  lodgingBlock: document.getElementById("lodgingBlock"),
+  servicesCard: document.getElementById("servicesCard"),
+  employmentCard: document.getElementById("employmentCard"),
+  occupancyCard: document.getElementById("occupancyCard"),
+  recessCard: document.getElementById("recessCard"),
+  salesNumbersBlock: document.getElementById("salesNumbersBlock"),
+  salesPerceptionBlock: document.getElementById("salesPerceptionBlock"),
+  contactBlock: document.getElementById("contactBlock"),
+  continueBtn: document.getElementById("continueBtn"),
+  routeStatus: document.getElementById("routeStatus"),
+  associationCard: document.getElementById("associationCard"),
+  openQuestionCard: document.getElementById("openQuestionCard"),
+  finishCard: document.getElementById("finishCard")
+};
+
+function applyLang(){
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-i18n]").forEach(node=>{
+    const key=node.getAttribute("data-i18n");
+    if(T[lang][key]!==undefined) node.textContent=T[lang][key];
+  });
+  el.btnEs.classList.toggle("active",lang==="es");
+  el.btnEn.classList.toggle("active",lang==="en");
+}
+el.btnEs.onclick=()=>{lang="es";applyLang()};
+el.btnEn.onclick=()=>{lang="en";applyLang()};
+
+function hideRoutes(){
+  el.routeResidentBanner.classList.add("hidden");
+  el.residentBlock.classList.add("hidden");
+  el.routeGeneralBanner.classList.add("hidden");
+  el.routeLodgingBanner.classList.add("hidden");
+  el.generalBusinessBlock.classList.add("hidden");
+  el.lodgingBlock.classList.add("hidden");
+  el.servicesCard.classList.add("hidden");
+  el.employmentCard.classList.add("hidden");
+  el.occupancyCard.classList.add("hidden");
+  el.recessCard.classList.add("hidden");
+  el.associationCard.classList.add("hidden");
+  el.openQuestionCard.classList.add("hidden");
+  el.finishCard.classList.add("hidden");
+  el.routeStatus.textContent="";
+}
+
+function updateConditional(){
+  // Secondary conditionals inside whichever route is already visible.
+  const hasSalesData=document.querySelector('input[name="hasSalesData"]:checked')?.value;
+  el.salesNumbersBlock.classList.toggle("hidden", hasSalesData!=="si");
+  el.salesPerceptionBlock.classList.toggle("hidden", hasSalesData!=="no");
+
+  const residentInterest=el.entrepreneurInterest?.value;
+  if(el.residentSectorBlock){
+    el.residentSectorBlock.classList.toggle("hidden", !["already","12m","later","maybe"].includes(residentInterest));
+  }
+
+  const assoc=document.querySelector('input[name="association"]:checked')?.value;
+  el.contactBlock.classList.toggle("hidden",assoc!=="si");
+}
+
+function openSelectedRoute(){
+  const act=el.activity.value;
+  if(!act){
+    hideRoutes();
+    el.routeStatus.textContent=T[lang].selectActivityFirst;
+    el.routeStatus.style.color="#9f3a38";
+    el.activity.focus();
+    return;
+  }
+
+  const lodging=lodgingActivities.has(act);
+  const resident=(act==="residente");
+  hideRoutes();
+
+  if(resident){
+    el.routeResidentBanner.classList.remove("hidden");
+    el.residentBlock.classList.remove("hidden");
+    el.routeStatus.textContent=T[lang].routeOpenedResident;
+    el.routeResidentBanner.scrollIntoView({behavior:"smooth",block:"start"});
+  }else if(lodging){
+    el.routeLodgingBanner.classList.remove("hidden");
+    el.lodgingBlock.classList.remove("hidden");
+    el.servicesCard.classList.remove("hidden");
+    el.employmentCard.classList.remove("hidden");
+    el.recessCard.classList.remove("hidden");
+    el.occupancyCard.classList.remove("hidden");
+    el.routeStatus.textContent=T[lang].routeOpenedLodging;
+    el.routeLodgingBanner.scrollIntoView({behavior:"smooth",block:"start"});
+  }else{
+    el.routeGeneralBanner.classList.remove("hidden");
+    el.generalBusinessBlock.classList.remove("hidden");
+    el.routeStatus.textContent=T[lang].routeOpenedGeneral;
+    el.routeGeneralBanner.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+
+  el.associationCard.classList.remove("hidden");
+  el.openQuestionCard.classList.remove("hidden");
+  el.finishCard.classList.remove("hidden");
+  el.routeStatus.style.color="";
+  updateConditional();
+}
+
+el.continueBtn.addEventListener("click",openSelectedRoute);
+el.activity.addEventListener("change",()=>{
+  // KISS: changing the activity requires pressing CONTINUE again.
+  hideRoutes();
+  el.routeStatus.textContent=lang==="es" ? "Actividad seleccionada. Pulse CONTINUAR." : "Activity selected. Tap CONTINUE.";
+});
+document.querySelectorAll('input[name="hasSalesData"]').forEach(x=>x.addEventListener("change",updateConditional));
+document.querySelectorAll('input[name="association"]').forEach(x=>x.addEventListener("change",updateConditional));
+if(el.entrepreneurInterest) el.entrepreneurInterest.addEventListener("change",updateConditional);
+
+function anonymousDeviceId(){
+  let id=localStorage.getItem("palomino_anon_device_id");
+  if(!id){
+    const a=crypto.getRandomValues(new Uint32Array(2));
+    id="ANON-"+Array.from(a).map(x=>x.toString(36)).join("").slice(0,12).toUpperCase();
+    localStorage.setItem("palomino_anon_device_id",id);
+  }
+  return id;
+}
+
+function ensureResponseId(){
+  let id=localStorage.getItem("palomino_response_id_v3_4");
+  if(!id){
+    const bytes=crypto.getRandomValues(new Uint8Array(6));
+    id="PAL-"+Array.from(bytes).map(b=>(b%36).toString(36)).join("").toUpperCase();
+    localStorage.setItem("palomino_response_id_v3_4",id);
+  }
+  return id;
+}
+
+function collect(){
+  const fd=new FormData(document.getElementById("surveyForm"));
+  const data=Object.fromEntries(fd.entries());
+  for(const [k,v] of Object.entries(data)) if(v==="") data[k]=null;
+  return {
+    format:"qrhub-survey-response-v2",
+    surveyId:CONFIG.surveyId,
+    language:lang,
+    anonymousDeviceId:anonymousDeviceId(),
+    responseId:ensureResponseId(),
+    submittedAt:new Date().toISOString(),
+    data
+  };
+}
+
+const statusEl=document.getElementById("status");
+const responseCodeEl=document.getElementById("responseCode");
+const adminNewSurveyEl=document.getElementById("adminNewSurvey");
+const submitBtnEl=document.getElementById("submitBtn");
+
+document.getElementById("saveDraft").addEventListener("click",()=>{
+  localStorage.setItem("palomino_draft_v3_4",JSON.stringify(collect()));
+  document.getElementById("status").textContent=lang==="es"
+    ?"Borrador guardado en este dispositivo."
+    :"Draft saved on this device.";
+});
+
+async function sendPayload(payload,mode){
+  if(!CONFIG.apiUrl) throw new Error(lang==="es" ? "API no configurada." : "API not configured.");
+
+  payload.action = "submit";
+
+  await fetch(CONFIG.apiUrl,{
+    method:"POST",
+    mode:"no-cors",
+    headers:{"Content-Type":"text/plain;charset=utf-8"},
+    body:JSON.stringify(payload)
+  });
+
+  return {ok:true,responseId:payload.responseId};
+}
+
+function lockSubmittedSurvey(responseId){
+  const form=document.getElementById("surveyForm");
+  form.querySelectorAll("input,select,textarea,button").forEach(elm=>{
+    if(elm.id!=="adminNewSurvey") elm.disabled=true;
+  });
+  document.getElementById("saveDraft").classList.add("hidden");
+  submitBtnEl.classList.add("hidden");
+  responseCodeEl.textContent=(lang==="es"
+    ?"✓ Respuesta recibida · Código: "
+    :"✓ Response received · Code: ")+responseId;
+  responseCodeEl.style.display="block";
+  statusEl.style.color="#216e55";
+  statusEl.textContent=lang==="es"
+    ?"ENCUESTA CERRADA · Su respuesta ya fue enviada y no puede modificarse."
+    :"SURVEY CLOSED · Your response has been submitted and cannot be edited.";
+}
+
+document.getElementById("surveyForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const form=document.getElementById("surveyForm");
+  if(!form.reportValidity()) return;
+
+  if(localStorage.getItem("palomino_submitted_v3_4")){
+    const saved=JSON.parse(localStorage.getItem("palomino_submitted_v3_4"));
+    lockSubmittedSurvey(saved.responseId);
+    return;
+  }
+
+  const confirmText=lang==="es"
+    ?"¿Desea enviar la encuesta? Después de enviarla no podrá editarla ni enviar otra desde este navegador."
+    :"Submit the survey? After submitting, you will not be able to edit it or submit another one from this browser.";
+  if(!window.confirm(confirmText)) return;
+
+  const payload=collect();
+
+  // Keep a local copy until the transmission is dispatched.
+  localStorage.setItem("palomino_draft_v3_4",JSON.stringify(payload));
+
+  statusEl.style.color="#1f4f43";
+  statusEl.textContent=lang==="es"?"Enviando encuesta...":"Sending survey...";
+  submitBtnEl.disabled=true;
+  submitBtnEl.textContent=lang==="es"?"Enviando...":"Sending...";
+
+  try{
+    await sendPayload(payload,"create");
+
+    const closedRecord={
+      responseId:payload.responseId,
+      submittedAt:new Date().toISOString(),
+      data:payload
+    };
+    localStorage.setItem("palomino_submitted_v3_4",JSON.stringify(closedRecord));
+    localStorage.removeItem("palomino_draft_v3_4");
+    lockSubmittedSurvey(payload.responseId);
+  }catch(err){
+    statusEl.style.color="#9f3a38";
+    statusEl.textContent=err.message;
+    submitBtnEl.disabled=false;
+    submitBtnEl.textContent=lang==="es"?"Enviar encuesta":"Submit survey";
+  }
+});
+
+
+(function restoreDraft(){
+  try{
+    const raw=localStorage.getItem("palomino_draft_v3_4");
+    if(!raw) return;
+    const saved=JSON.parse(raw)?.data||{};
+    for(const [k,v] of Object.entries(saved)){
+      if(v===null) continue;
+      const els=[...document.querySelectorAll(`[name="${k}"]`)];
+      if(!els.length) continue;
+      if(els[0].type==="radio"){
+        const r=els.find(x=>x.value===String(v)); if(r) r.checked=true;
+      } else els[0].value=v;
+    }
+    updateConditional();
+  }catch(e){}
+})();
+
+function postEvent(eventName){
+  if(!CONFIG.apiUrl) return;
+  const payload={
+    action:eventName,
+    surveyId:CONFIG.surveyId,
+    anonymousDeviceId:anonymousDeviceId(),
+    responseId:localStorage.getItem("palomino_response_id_v3_4")||null,
+    language:lang,
+    at:new Date().toISOString()
+  };
+  fetch(CONFIG.apiUrl,{
+    method:"POST",
+    mode:"no-cors",
+    headers:{"Content-Type":"text/plain;charset=utf-8"},
+    body:JSON.stringify(payload)
+  }).catch(()=>{});
+}
+
+function recordOpen(){
+  postEvent("survey_open");
+}
+const submittedRecordRaw=localStorage.getItem("palomino_submitted_v3_4");
+if(submittedRecordRaw){
+  try{
+    const submittedRecord=JSON.parse(submittedRecordRaw);
+    if(submittedRecord && submittedRecord.responseId){
+      // Restore the submitted answers for read-only viewing when possible.
+      if(submittedRecord.data && submittedRecord.data.data){
+        const d=submittedRecord.data.data;
+        Object.entries(d).forEach(([name,value])=>{
+          const fields=document.querySelectorAll(`[name="${CSS.escape(name)}"]`);
+          fields.forEach(field=>{
+            if(field.type==="radio" || field.type==="checkbox"){
+              field.checked=String(field.value)===String(value);
+            }else if(value!==null && value!==undefined){
+              field.value=value;
+            }
+          });
+        });
+        const activityField=document.querySelector('[name="activity"]');
+        if(activityField && activityField.value){
+          try{openSelectedRoute()}catch(_){}
+        }
+        updateConditional();
+      }
+      setTimeout(()=>lockSubmittedSurvey(submittedRecord.responseId),0);
+    }
+  }catch(_){}
+}
+
+const params=new URLSearchParams(window.location.search);
+if(params.get("modo")==="prueba"){
+  adminNewSurveyEl.classList.remove("hidden");
+  adminNewSurveyEl.disabled=false;
+  adminNewSurveyEl.addEventListener("click",()=>{
+    if(!window.confirm("Modo prueba: ¿crear una encuesta nueva en este navegador?")) return;
+    localStorage.removeItem("palomino_submitted_v3_4");
+    localStorage.removeItem("palomino_draft_v3_4");
+    localStorage.removeItem("palomino_response_id_v3_4");
+    location.reload();
+  });
+}
+
+applyLang();
+hideRoutes();
+updateConditional();
+</script>
+</body>
+</html>
