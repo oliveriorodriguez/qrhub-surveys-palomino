@@ -775,7 +775,7 @@ const adminNewSurveyEl=document.getElementById("adminNewSurvey");
 const submitBtnEl=document.getElementById("submitBtn");
 
 document.getElementById("saveDraft").addEventListener("click",()=>{
-  localStorage.setItem("palomino_draft_v3_4",JSON.stringify(collect()));
+  localStorage.setItem("palomino_draft_v3_4_prod",JSON.stringify(collect()));
   document.getElementById("status").textContent=lang==="es"
     ?"Borrador guardado en este dispositivo."
     :"Draft saved on this device.";
@@ -818,8 +818,8 @@ document.getElementById("surveyForm").addEventListener("submit",async e=>{
   const form=document.getElementById("surveyForm");
   if(!form.reportValidity()) return;
 
-  if(localStorage.getItem("palomino_submitted_v3_4")){
-    const saved=JSON.parse(localStorage.getItem("palomino_submitted_v3_4"));
+  if(localStorage.getItem("palomino_submitted_v3_4_prod")){
+    const saved=JSON.parse(localStorage.getItem("palomino_submitted_v3_4_prod"));
     lockSubmittedSurvey(saved.responseId);
     return;
   }
@@ -832,7 +832,7 @@ document.getElementById("surveyForm").addEventListener("submit",async e=>{
   const payload=collect();
 
   // Keep a local copy until the transmission is dispatched.
-  localStorage.setItem("palomino_draft_v3_4",JSON.stringify(payload));
+  localStorage.setItem("palomino_draft_v3_4_prod",JSON.stringify(payload));
 
   statusEl.style.color="#1f4f43";
   statusEl.textContent=lang==="es"?"Enviando encuesta...":"Sending survey...";
@@ -847,8 +847,8 @@ document.getElementById("surveyForm").addEventListener("submit",async e=>{
       submittedAt:new Date().toISOString(),
       data:payload
     };
-    localStorage.setItem("palomino_submitted_v3_4",JSON.stringify(closedRecord));
-    localStorage.removeItem("palomino_draft_v3_4");
+    localStorage.setItem("palomino_submitted_v3_4_prod",JSON.stringify(closedRecord));
+    localStorage.removeItem("palomino_draft_v3_4_prod");
     lockSubmittedSurvey(payload.responseId);
   }catch(err){
     statusEl.style.color="#9f3a38";
@@ -861,7 +861,7 @@ document.getElementById("surveyForm").addEventListener("submit",async e=>{
 
 (function restoreDraft(){
   try{
-    const raw=localStorage.getItem("palomino_draft_v3_4");
+    const raw=localStorage.getItem("palomino_draft_v3_4_prod");
     if(!raw) return;
     const saved=JSON.parse(raw)?.data||{};
     for(const [k,v] of Object.entries(saved)){
@@ -897,7 +897,7 @@ function postEvent(eventName){
 function recordOpen(){
   postEvent("survey_open");
 }
-const submittedRecordRaw=localStorage.getItem("palomino_submitted_v3_4");
+const submittedRecordRaw=localStorage.getItem("palomino_submitted_v3_4_prod");
 if(submittedRecordRaw){
   try{
     const submittedRecord=JSON.parse(submittedRecordRaw);
@@ -932,8 +932,8 @@ if(params.get("modo")==="prueba"){
   adminNewSurveyEl.disabled=false;
   adminNewSurveyEl.addEventListener("click",()=>{
     if(!window.confirm("Modo prueba: ¿crear una encuesta nueva en este navegador?")) return;
-    localStorage.removeItem("palomino_submitted_v3_4");
-    localStorage.removeItem("palomino_draft_v3_4");
+    localStorage.removeItem("palomino_submitted_v3_4_prod");
+    localStorage.removeItem("palomino_draft_v3_4_prod");
     localStorage.removeItem("palomino_response_id_v3_4");
     location.reload();
   });
